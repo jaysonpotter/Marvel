@@ -1,0 +1,24 @@
+/* -------------------------------------------------------------- 
+   
+   Set page specific styling here
+     
+-------------------------------------------------------------- */   
+
+/*
+
+@supports (display: -webkit-flex) or 
+		  (display: -mox-flex) or 
+		  (display: -ms-flex) or 
+		  (display: flex) {
+  body {
+    background-color: red;
+  }
+}
+
+@supports (width: calc(100%)) {
+	body {
+		background: green;
+	}
+}
+
+*/

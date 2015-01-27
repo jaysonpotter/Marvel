@@ -1,0 +1,37 @@
+.no-nthchild .blocks-start {
+	clear:left;
+}
+
+.no-nthchild .blocks-end {
+	zoom:1;
+	float:none;
+	width:auto;
+}
+.region img {
+	width:auto;
+}
+
+body {}
+
+.push_wrapper {
+    left: 0;
+}
+
+.global_open {
+    left: -300px;
+}
+
+.push_open {
+    left: 300px;
+}
+
+.global_navigation {
+    left: -300px;
+}
+
+a + .nav_level {
+    left: 200%;
+}
+a + .nav_level.open {
+    left: 0;
+}

@@ -1,0 +1,18 @@
+.no-nthchild .blocks-start {
+	clear:left;
+}
+
+.no-nthchild .blocks-end {
+	zoom:1;
+	float:none;
+	width:auto;
+}
+.region img {
+	width:auto;
+}
+
+
+
+body {
+    background-color: red;
+}
