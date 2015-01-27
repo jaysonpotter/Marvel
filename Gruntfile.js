@@ -32,14 +32,46 @@ module.exports = function(grunt) {
         src: ['js/**/*.js']
       }
     },
+    handlebars: {
+        compile: {
+        	options: {
+        	namespace: 'Marvel.TEMPLATES',
+        		processName: function (filename) {
+        			return filename.replace(/(src\/templates\/|\.hbs)/ig, '');
+        		}
+        	},
+        	files: {
+        		'tmp/js/templates.js': ['src/templates/*.hbs']
+        	}
+        }
+    },
+    less: {
+        development: {
+            options: {
+                paths: ["src/less"]
+            },
+            files: {
+                "dist/css/<%= pkg.name %>.css": "src/less/app.less"
+            }
+        },
+        production: {
+            options: {
+                paths: ["src/less"],
+                compress: true
+            },
+            files: {
+                "dist/css/<%= pkg.name %>.css": "src/less/app.less"
+            }
+        }
+    },
     concat: {
       options: {
         banner: '<%= banner %>',
         stripBanners: true
       },
       dist: {
-        src: ['src/js/**/*.js'],
-        dest: 'tmp/built.js'
+        src: ['src/js/**/*.js', 'tmp/js/templates.js'],
+        dest: 'tmp/js/built.js'
       }
     },
     uglify: {
@@ -52,14 +84,11 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      gruntfile: {
-        files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile']
-      },
-      lib_test: {
-        files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'qunit']
-      }
+      all: {
+            files: ['src/**/*.js', 'src/**/*.less', 'src/**/*.hbs', 'Gruntfile.js'],
+            tasks: ['default'],
+            options: { spawn: false }
+        }
     },
     copy: {
       main: {
@@ -75,13 +104,15 @@ module.exports = function(grunt) {
       }
     },
     clean: {
-        freshStart: ['dist/'],
-        temp: ['tmp/']
+        freshStart: ['dist/*'],
+        temp: ['tmp/*']
     }
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -89,6 +120,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
 
   // Default task.
-  grunt.registerTask('default', ['clean:freshStart', 'concat', 'uglify', 'copy', 'clean:temp']);
+  grunt.registerTask('default', ['clean:freshStart', 'handlebars', 'less:development', 'concat', 'uglify', 'copy', 'clean:temp']);
 
 };
