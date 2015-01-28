@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
-    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n',
+    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>*/\n',
     // Task configuration.
     jshint: {
       options: {
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['js/**/*.js']
+        src: ['src/js/**/*.js']
       }
     },
     handlebars: {
@@ -69,17 +69,31 @@ module.exports = function(grunt) {
         banner: '<%= banner %>',
         stripBanners: true
       },
-      dist: {
-        src: ['src/js/**/*.js', 'tmp/js/templates.js'],
-        dest: 'tmp/js/built.js'
+      app: {
+        src: ['src/js/app/**/*.js', 'tmp/js/templates.js'],
+        dest: 'tmp/js/app.js'
+      },
+      lib: {
+        src: [
+            'src/js/lib/jquery-2.1.1.js',
+            'src/js/lib/underscore-1.6.0.js',
+            'src/js/lib/backbone-1.1.2.js',
+            'src/js/lib/backbone.marionette-2.1.0.js'
+            ],
+        dest: 'tmp/js/lib.js'
+      },
+      shabang: {
+          src: ['tmp/js/lib.js', 'tmp/js/app.js'],
+          dest: 'tmp/js/marvel.js'
       }
     },
     uglify: {
       options: {
-        banner: '<%= banner %>'
+        banner: '<%= banner %>',
+        mangle: false
       },
       dist: {
-        src: '<%= concat.dist.dest %>',
+        src: '<%= concat.shabang.dest %>',
         dest: 'dist/js/<%= pkg.name %>.min.js'
       }
     },
