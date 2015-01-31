@@ -1,18 +1,58 @@
-$(function () {
-  'use strict';
+Marvel.App.Mvl = function () {
+	return _.extend({
+		docRoot  : null,
+		docOrigin: null,
+		router   : null,
+		content  : {},
 
-  app.collection = new MarvelApp.Collections.Characters();
+		initialize: function () {
+			this.docRoot = document.location.href;
+			this.docOrigin = document.location.origin;
 
-  app.characterView = new MarvelApp.Views.Character({
-    collection: app.collection
-  });
+			this.doSomethingBeforeReady();
+		},
 
-  app.router = new MarvelApp.Routers.Router();
+		ready: function () {
+			this.router = new Marvel.Router({
+				app: this
+			});
 
-  app.collection.once("reset", function () {
-    Backbone.history.start();
-  });
+			try {
+				Backbone.history.start({
+    				root: '/Marvel/dist/',
+					pushState: true
+				});
+			}
+			catch (e) {
+				console.log("History is blabbing about ", e);
+			}
+			
+			// This allows for {{ value }} syntax in the 
+			// underscore templates vs <%= value %>
+            _.templateSettings = {
+                evaluate: /\{\{(.+?)\}\}/g,
+                interpolate: /\{\{\=(.+?)\}\}/g,
+                escape: /\{\{\-(.+?)\}\}/g
+            };
+			
+		},
 
-  app.collection.fetch({ reset: true });
+		doSomethingBeforeReady: function (callback) {
+			var url = 'http://gateway.marvel.com:80/v1/public/characters/1009313?apikey=bea22e84deda871e47704c00d29cb43e',
+			    setOfTen = 'http://gateway.marvel.com:80/v1/public/characters/1009313/comics?limit=10&apikey=bea22e84deda871e47704c00d29cb43e',
+				that = this;
 
-});
+			$.getJSON(setOfTen, {})
+				.done(function (res) {
+    				console.log("the Marvel Response", res);
+					marvel.content = new Marvel.Model.Character(res.data);
+					marvel.test = new Marvel.Collection.Characters(res.data.results);
+					that.ready();
+				})
+				.fail(function (res, status) {
+					console.log(res, status);
+				});
+
+		}
+	});
+};
