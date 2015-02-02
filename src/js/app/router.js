@@ -1,13 +1,11 @@
 Marvel.Router = Backbone.Router.extend({
 	_current: null,
-	app     : undefined,
 
-	initialize: function (config) {
-		this.app = config.app;
-	},
+	initialize: function () {},
 
 	routes: {
-		'' : 'index'
+		'' : 'index',
+		'search': 'search'
 	},
 
 	root: function () {
@@ -19,15 +17,20 @@ Marvel.Router = Backbone.Router.extend({
 		// although if we poll for articles, we just might need to
 		// to show results for filters and searches
 		if(this._current !== 'index') {
-			var indexPageView = new Marvel.View.IndexPage({
-				collection: marvel.content
-			});
+			var indexPageView = new Marvel.View.Index({model:marvel.content.example});
 
 			indexPageView.render();
 
 			this._current = 'index';
-			$('#Content').show();
 		}
 
+	},
+
+	search: function(){
+		if(this._current !== 'search') {
+			var searchPage = new Marvel.View.Search({
+
+			});
+		}
 	}
 });

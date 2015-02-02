@@ -19,40 +19,28 @@ Marvel.App.Mvl = function () {
 
 			try {
 				Backbone.history.start({
-    				root: '/Marvel/dist/',
+    				root: '/Marvel/',
 					pushState: true
 				});
 			}
 			catch (e) {
 				console.log("History is blabbing about ", e);
 			}
-			
-			// This allows for {{ value }} syntax in the 
-			// underscore templates vs <%= value %>
-            _.templateSettings = {
-                evaluate: /\{\{(.+?)\}\}/g,
-                interpolate: /\{\{\=(.+?)\}\}/g,
-                escape: /\{\{\-(.+?)\}\}/g
-            };
-			
+
 		},
 
-		doSomethingBeforeReady: function (callback) {
+		doSomethingBeforeReady: function () {
 			var url = 'http://gateway.marvel.com:80/v1/public/characters/1009313?apikey=bea22e84deda871e47704c00d29cb43e',
-			    setOfTen = 'http://gateway.marvel.com:80/v1/public/characters/1009313/comics?limit=10&apikey=bea22e84deda871e47704c00d29cb43e',
 				that = this;
 
-			$.getJSON(setOfTen, {})
+			$.getJSON(url, {})
 				.done(function (res) {
-    				console.log("the Marvel Response", res);
-					marvel.content = new Marvel.Model.Character(res.data);
-					marvel.test = new Marvel.Collection.Characters(res.data.results);
+					marvel.content.example = new Marvel.Model.Character(res.data.results[0]);
 					that.ready();
 				})
 				.fail(function (res, status) {
 					console.log(res, status);
 				});
-
 		}
 	});
 };

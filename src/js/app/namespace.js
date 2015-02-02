@@ -6,5 +6,5 @@ Marvel.Model      || (Marvel.Model      = {});
 Marvel.Collection || (Marvel.Collection = {});
 Marvel.Router     || (Marvel.Router     = {});
 Marvel.View       || (Marvel.View       = {});
-Marvel.Templates  || (Marvel.View       = {});
+Marvel.Templates  || (Marvel.Templates  = {});
 Marvel.Utils      || (Marvel.Utils      = {});

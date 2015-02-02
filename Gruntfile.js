@@ -36,15 +36,11 @@ module.exports = function (grunt) {
                 options: {
                     namespace: 'Marvel.Templates',
                     processName: function (filepath) {
-                        return filepath.replace(/(src\/templates\/|\.hbs)/ig, '');
-                    },
-                    templateSettings: {
-                        interpolate: /\{\{(.+?)\}\}/g
+                        return filepath.replace(/(src\/templates\/|\.tpl)/ig, '');
                     }
                 },
                 files: {
-                    // using .hbs to stand for handlebars syntax, still underscore templates
-                    "tmp/js/templates.js": ["src/templates/*.hbs"]
+                    "tmp/js/templates.js": ["src/templates/*.tpl"]
                 }
             }
         },
@@ -75,12 +71,12 @@ module.exports = function (grunt) {
             app: {
                 src: [
                     'src/js/app/namespace.js',
+					'tmp/js/templates.js',
                     'src/js/app/models/**/*.js',
                     'src/js/app/collections/**/*.js',
                     'src/js/app/views/**/*.js',
                     'src/js/app/router.js',
                     'src/js/app/app.js',
-                    'tmp/js/templates.js',
                     'src/js/app/init.js'
                 ],
                 dest: 'tmp/js/app.js'
@@ -89,8 +85,7 @@ module.exports = function (grunt) {
                 src: [
                     'src/js/lib/jquery-2.1.1.js',
                     'src/js/lib/underscore-1.6.0.js',
-                    'src/js/lib/backbone-1.1.2.js',
-                    'src/js/lib/backbone.marionette-2.1.0.js'
+                    'src/js/lib/backbone-1.1.2.js'
                 ],
                 dest: 'tmp/js/lib.js'
             },
@@ -115,7 +110,7 @@ module.exports = function (grunt) {
                 files: [
                     'src/**/*.js',
                     'src/**/*.less',
-                    'src/**/*.hbs',
+                    'src/**/*.tpl',
                     'Gruntfile.js',
                     'src/index.html'
                 ],
