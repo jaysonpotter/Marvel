@@ -40,29 +40,38 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    "tmp/js/templates.js": ["src/templates/*.tpl"]
+                    'tmp/js/templates.js': 'src/templates/*.tpl'
                 }
             }
         },
         less: {
             development: {
                 options: {
-                    paths: ["src/less"]
+                    paths: ['src/less']
                 },
                 files: {
-                    "dist/css/<%= pkg.name %>.css": "src/less/app.less"
+                    'tmp/css/<%= pkg.name %>.css': 'src/less/app.less'
                 }
             },
             production: {
                 options: {
-                    paths: ["src/less"],
+                    paths: ['src/less'],
                     compress: true
                 },
                 files: {
-                    "dist/css/<%= pkg.name %>.css": "src/less/app.less"
+                    'tmp/css/<%= pkg.name %>.css': 'src/less/app.less'
                 }
             }
         },
+		autoprefixer: {
+			options: {
+				browsers: ['last 2 versions', 'ie 9']
+			},
+			prefixing: {
+				src: 'tmp/css/<%= pkg.name %>.css',
+				dest: 'dist/css/<%= pkg.name %>.css'
+			}
+		},
         concat: {
             options: {
                 banner: '<%= banner %>',
@@ -143,6 +152,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-jst');
     grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -154,6 +164,7 @@ module.exports = function (grunt) {
         'clean:freshStart',
         'jst',
         'less:development',
+		'autoprefixer',
         'concat',
         'uglify',
         'copy',

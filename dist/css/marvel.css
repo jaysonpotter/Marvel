@@ -6,7 +6,23 @@
     top: -150%;
   }
 }
+@keyframes top {
+  from {
+    top: 0;
+  }
+  to {
+    top: -150%;
+  }
+}
 @-webkit-keyframes bottom {
+  from {
+    bottom: 0;
+  }
+  to {
+    bottom: -150%;
+  }
+}
+@keyframes bottom {
   from {
     bottom: 0;
   }
@@ -22,7 +38,23 @@
     background-position: 0 100%;
   }
 }
+@keyframes animateBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
 @-webkit-keyframes animateBackgroundRev {
+  from {
+    background-position: 0 100%;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@keyframes animateBackgroundRev {
   from {
     background-position: 0 100%;
   }
@@ -38,12 +70,14 @@
   height: 120px;
   margin: -50px 0 0 -50px;
   -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
 }
-.sphere {
+#loading .sphere {
   position: absolute;
 }
-.sphere:before,
-.sphere:after {
+#loading .sphere:before,
+#loading .sphere:after {
   content: '';
   position: absolute;
   width: 100%;
@@ -52,88 +86,83 @@
   background-size: cover;
   background-color: pink;
 }
-.sphere:before {
+#loading .sphere:before {
   top: 0;
   border-radius: 999px 999px 0 0;
   -webkit-animation: top ease .8s alternate infinite, animateBackgroundRev ease .8s alternate infinite;
+          animation: top ease .8s alternate infinite, animateBackgroundRev ease .8s alternate infinite;
 }
-.sphere:after {
+#loading .sphere:after {
   bottom: 0;
   border-radius: 0 0 999px 999px;
   -webkit-animation: bottom ease .8s alternate infinite, animateBackground ease .8s alternate infinite;
+          animation: bottom ease .8s alternate infinite, animateBackground ease .8s alternate infinite;
   background-image: url('../img/vertical-wavy-solid.svg');
   background-position: 0px 0px;
   background-repeat: repeat-x;
 }
-.s-1 {
+#loading .s-1 {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 }
-.s-2 {
+#loading .s-2 {
   top: 15px;
   right: 15px;
   bottom: 15px;
   left: 15px;
 }
-.s-3 {
+#loading .s-3 {
   top: 26px;
   right: 26px;
   bottom: 26px;
   left: 26px;
 }
-.s-4 {
+#loading .s-4 {
   top: 34px;
   right: 34px;
   bottom: 34px;
   left: 34px;
 }
-.s-5 {
+#loading .s-5 {
   top: 40px;
   right: 40px;
   bottom: 40px;
   left: 40px;
 }
-.s-center {
+#loading .s-center {
   top: 30px;
   right: 30px;
   bottom: 30px;
   left: 30px;
 }
-.s-2:before {
-  background-image: url('../img/vertical-wavy-solid-rev.svg');
-}
-.s-2:after {
-  background-image: url('../img/vertical-wavy-solid.svg');
-}
-.s-4:before {
-  background-image: url('../img/vertical-wavy-solid-rev.svg');
-}
-.s-4:after {
-  background-image: url('../img/vertical-wavy-solid.svg');
-}
-.s-2:before,
-.s-2:after {
+#loading .s-2:before,
+#loading .s-2:after {
   -webkit-animation-delay: 200ms;
+          animation-delay: 200ms;
 }
-.s-3:before,
-.s-3:after {
+#loading .s-3:before,
+#loading .s-3:after {
   -webkit-animation-delay: 400ms;
+          animation-delay: 400ms;
 }
-.s-4:before,
-.s-4:after {
+#loading .s-4:before,
+#loading .s-4:after {
   -webkit-animation-delay: 600ms;
+          animation-delay: 600ms;
 }
-.s-5:before,
-.s-5:after {
+#loading .s-5:before,
+#loading .s-5:after {
   -webkit-animation-delay: 800ms;
+          animation-delay: 800ms;
 }
-.s-center:before,
-.s-center:after {
+#loading .s-center:before,
+#loading .s-center:after {
   background: pink;
   box-shadow: 0 0 50px pink;
   -webkit-animation: none;
+          animation: none;
 }
 html,
 body {
