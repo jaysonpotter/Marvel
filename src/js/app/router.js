@@ -1,36 +1,54 @@
 Marvel.Router = Backbone.Router.extend({
-	_current: null,
+    _current: null,
 
-	initialize: function () {},
+    app     : undefined,
 
-	routes: {
-		'' : 'index',
-		'search': 'search'
-	},
+    initialize: function (config) {
+        this.app = config.app;
+    },
 
-	root: function () {
-    	console.log("this is groot");
-	},
+    routes: {
+        '': 'index',
+        'search/:name': 'search'
+    },
 
-	index: function () {
-		// this checks the current route so it doesn't trigger a rerender
-		// although if we poll for articles, we just might need to
-		// to show results for filters and searches
-		if(this._current !== 'index') {
-			var indexPageView = new Marvel.View.Index({model:marvel.content.example});
+    root: function () {
+        console.log("this is groot");
+    },
 
-			indexPageView.render();
+    index: function () {
+        // this checks the current route so it doesn't trigger a rerender
+        // although if we poll for articles, we just might need to
+        // to show results for filters and searches
+        if (this._current !== 'index') {
+            var indexPageView = new Marvel.View.Index({collection: marvel.content.example});
 
-			this._current = 'index';
-		}
+            marvel.showView(indexPageView);
 
-	},
+            this._current = 'index';
+        }
 
-	search: function(){
-		if(this._current !== 'search') {
-			var searchPage = new Marvel.View.Search({
+    },
 
-			});
-		}
-	}
+    search: function (name) {
+        var searchTerm = ('search_term_' + name);
+
+        if (this._current !== searchTerm) {
+
+            var resultsName = 'results_for_' + name;
+
+            marvel.content[resultsName] = new Marvel.Collection.Characters();
+
+            var nameSearchResultsView = new Marvel.View.Search({
+                collection: marvel.content[resultsName],
+                name      : name
+            });
+
+            marvel.showView(nameSearchResultsView);
+
+            this._current = searchTerm;
+        }
+
+
+    }
 });

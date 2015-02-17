@@ -31,6 +31,7 @@ module.exports = function (grunt) {
                 src: ['src/js/**/*.js']
             }
         },
+
         jst: {
             compile: {
                 options: {
@@ -44,6 +45,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         less: {
             development: {
                 options: {
@@ -63,15 +65,17 @@ module.exports = function (grunt) {
                 }
             }
         },
-		autoprefixer: {
-			options: {
-				browsers: ['last 2 versions', 'ie 9']
-			},
-			prefixing: {
-				src: 'tmp/css/<%= pkg.name %>.css',
-				dest: 'dist/css/<%= pkg.name %>.css'
-			}
-		},
+
+        autoprefixer: {
+            options: {
+                browsers: ['last 2 versions', 'ie 9']
+            },
+            prefixing: {
+                src: 'tmp/css/<%= pkg.name %>.css',
+                dest: 'dist/css/<%= pkg.name %>.css'
+            }
+        },
+
         concat: {
             options: {
                 banner: '<%= banner %>',
@@ -80,10 +84,11 @@ module.exports = function (grunt) {
             app: {
                 src: [
                     'src/js/app/namespace.js',
-					'tmp/js/templates.js',
+                    'tmp/js/templates.js',
                     'src/js/app/models/**/*.js',
                     'src/js/app/collections/**/*.js',
                     'src/js/app/views/**/*.js',
+                    'src/js/app/utilities.js',
                     'src/js/app/router.js',
                     'src/js/app/app.js',
                     'src/js/app/init.js'
@@ -103,6 +108,7 @@ module.exports = function (grunt) {
                 dest: 'tmp/js/marvel.js'
             }
         },
+
         uglify: {
             options: {
                 banner: '<%= banner %>',
@@ -114,6 +120,7 @@ module.exports = function (grunt) {
                 dest: 'dist/js/<%= pkg.name %>.min.js'
             }
         },
+
         watch: {
             all: {
                 files: [
@@ -129,42 +136,44 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         copy: {
             main: {
                 files: [
-                // includes files within path
-                {
-                    expand: true,
-                    src: ['*', 'img/**/*'],
-                    cwd: 'src/',
-                    dest: 'dist/',
-                    filter: 'isFile'
-                }]
+                    // includes files within path
+                    {
+                        expand: true,
+                        src: ['*', 'img/**/*'],
+                        cwd: 'src/',
+                        dest: 'dist/',
+                        filter: 'isFile'
+                    }]
             }
         },
+
         clean: {
             freshStart: ['dist/*'],
             temp: ['tmp/*']
         }
     });
-    
+
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-jst');
     grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    
+
     // Default task.
     grunt.registerTask('default', [
         'clean:freshStart',
         'jst',
         'less:development',
-		'autoprefixer',
+        'autoprefixer',
         'concat',
         'uglify',
         'copy',
