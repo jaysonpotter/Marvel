@@ -6,7 +6,10 @@ Marvel.View.Search = Backbone.View.extend({
 
         this.name = options.name;
 
-        this.collection.fetchCharactersSearchResults({name: this.name});
+        if (this.collection.length === 0) {
+            this.collection.fetchCharactersSearchResults({name: this.name});
+        }
+
     },
 
     render: function () {
@@ -16,8 +19,6 @@ Marvel.View.Search = Backbone.View.extend({
 
         // if collection exists then render what's there.
         this.collection.each(function (model) {
-            console.log();
-
             var characterView = new Marvel.View.Character({model: model});
 
             this.$el.append(characterView.render().el);
@@ -38,5 +39,6 @@ Marvel.View.Search = Backbone.View.extend({
         this.childViews.push(characterView);
     },
 
-    onClose: function () {}
+    onClose: function () {
+    }
 });
