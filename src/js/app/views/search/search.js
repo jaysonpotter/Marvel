@@ -3,8 +3,8 @@ Marvel.View.Search = Backbone.View.extend({
     template: Marvel.Templates.search,
 
     events: {
-        'click .test': function () {
-            this.workit();
+        'click': function () {
+            this.placeholderMethod();
         }
     },
 
@@ -21,7 +21,7 @@ Marvel.View.Search = Backbone.View.extend({
 
     },
 
-    workit: function () {
+    placeholderMethod: function () {
         console.log('events from the backbone search view');
     },
 

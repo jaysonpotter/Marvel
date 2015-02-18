@@ -2,16 +2,21 @@ Marvel.View.SearchInput = Backbone.View.extend({
     template: Marvel.Templates.search_input,
 
     events: {
-        'click input': function () {
-            this.workit();
+        'submit #SearchStartsWith': function (evt) {
+            evt.preventDefault();
+            this.routeToResults(evt);
         }
     },
 
     initialize: function () {
     },
 
-    workit: function () {
-        console.log('events from the parent template search input');
+    routeToResults: function (evt) {
+        var searchQuery = $(evt.target).find('#SearchInput').val(),
+            queryURL = '/search/' + searchQuery;
+
+        marvel.router.navigate(queryURL, {trigger: true});
+
     },
 
     render: function () {

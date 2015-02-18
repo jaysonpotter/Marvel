@@ -1,1 +1,1 @@
-<h1>Search View</h1>
+<h1>Search Parent View</h1>
