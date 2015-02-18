@@ -16,7 +16,6 @@ Marvel.Collection.Characters = Backbone.Collection.extend({
     },
 
     fetchCharactersSearchResults: function (options) {
-        var options = options || {};
 
         this.fetch({
             remove: false,

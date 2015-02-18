@@ -9,6 +9,7 @@ Marvel.Router = Backbone.Router.extend({
 
     routes: {
         '': 'index',
+        'search': 'search',
         'search/:name': 'search'
     },
 
@@ -31,26 +32,23 @@ Marvel.Router = Backbone.Router.extend({
     },
 
     search: function (name) {
-        var searchTerm = ('search_term_' + name);
+        var searchQuery = 'search_' + name,
+            nameSearchResultsView;
 
-        if (this._current !== searchTerm) {
+        if (this._current !== searchQuery) {
 
-            var resultsName = 'results_for_' + name;
-
-            if (!marvel.content[resultsName]) {
-                marvel.content[resultsName] = new Marvel.Collection.Characters();
+            if (!marvel.content[searchQuery]) {
+                marvel.content[searchQuery] = new Marvel.Collection.Characters();
             }
 
-            var nameSearchResultsView = new Marvel.View.Search({
-                collection: marvel.content[resultsName],
-                name: name
+            nameSearchResultsView = new Marvel.View.Search({
+                collection: marvel.content[searchQuery],
+                name: name || 'gambit'
             });
 
             marvel.showView(nameSearchResultsView);
 
-            this._current = searchTerm;
+            this._current = searchQuery;
         }
-
-
     }
 });

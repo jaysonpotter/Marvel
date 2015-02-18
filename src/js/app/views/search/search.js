@@ -1,4 +1,13 @@
 Marvel.View.Search = Backbone.View.extend({
+
+    template: Marvel.Templates.search,
+
+    events: {
+        'click .test': function () {
+            this.workit();
+        }
+    },
+
     initialize: function (options) {
         this.childViews = [];
 
@@ -12,10 +21,16 @@ Marvel.View.Search = Backbone.View.extend({
 
     },
 
-    render: function () {
-        //var showMoreCharacters = new Marvel.View.ShowMoreCharacters();
+    workit: function () {
+        console.log('events from the backbone search view');
+    },
 
-        //this.childViews.push(showMoreCharacters);
+    render: function () {
+        var searchInput = new Marvel.View.SearchInput();
+
+        this.childViews.push(searchInput);
+
+        this.$el.append(this.template());
 
         // if collection exists then render what's there.
         this.collection.each(function (model) {
@@ -27,8 +42,7 @@ Marvel.View.Search = Backbone.View.extend({
 
         }, this);
 
-        //this.$el.append(showMoreCharacters.render().el);
-
+        this.$el.append(searchInput.render().el);
     },
 
     renderAdditionalCharacters: function (newModel) {

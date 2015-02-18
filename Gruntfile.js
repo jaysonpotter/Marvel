@@ -21,14 +21,20 @@ module.exports = function (grunt) {
                 eqnull: true,
                 browser: true,
                 globals: {
-                    jQuery: true
+                    _: true,
+                    $: true,
+                    Backbone: true,
+                    jQuery: true,
+                    console: true,
+                    Marvel: true,
+                    marvel: true
                 }
             },
             gruntfile: {
                 src: 'Gruntfile.js'
             },
-            lib_test: {
-                src: ['src/js/**/*.js']
+            app_test: {
+                src: ['src/js/app/**/*.js']
             }
         },
 
@@ -175,6 +181,7 @@ module.exports = function (grunt) {
         'less:development',
         'autoprefixer',
         'concat',
+        'jshint',
         'uglify',
         'copy',
         'clean:temp',

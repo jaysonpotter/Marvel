@@ -6,9 +6,6 @@ Marvel.View.Index = Backbone.View.extend({
     },
 
     render: function () {
-        //var showMoreCharacters = new Marvel.View.ShowMoreCharacters();
-
-        //this.childViews.push(showMoreCharacters);
 
         this.collection.each(function (model) {
 
@@ -20,11 +17,9 @@ Marvel.View.Index = Backbone.View.extend({
 
         }, this);
 
-        //this.$el.append(showMoreCharacters.render().el);
-
     },
 
-    renderAdditionalCharacters: function (newModel) {
+    renderAdditionalCharacters: function (model) {
         var characterView = new Marvel.View.Character({model: model});
 
         this.$el.append(characterView.render().el);
