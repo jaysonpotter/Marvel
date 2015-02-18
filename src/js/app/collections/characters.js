@@ -7,12 +7,12 @@ Marvel.Collection.Characters = Backbone.Collection.extend({
 
     // parse allows us to get into the nested data returned from
     // the API when fetching new data via fetch()
-    parse: function (data) {
-        return data.results;
+    parse: function (res) {
+        return res.data.results;
     },
 
-    initialize: function (model) {
-        console.log('character model', model);
+    initialize: function () {
+        console.log('character collection');
     },
 
     fetchCharactersSearchResults: function (options) {
@@ -22,7 +22,7 @@ Marvel.Collection.Characters = Backbone.Collection.extend({
             remove: false,
             traditional: true,
             data: {
-                name  : options.name || '',
+                nameStartsWith  : options.name || '',
                 offset: options.offset || 0,
                 limit : 10,
                 apikey: this.publicAPIKey

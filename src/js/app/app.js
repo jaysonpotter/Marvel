@@ -22,7 +22,7 @@ Marvel.App.Mvl = function () {
 
             try {
                 Backbone.history.start({
-                    root: '/Marvel/',
+                    root: '/',
                     pushState: true
                 });
             }

@@ -1,7 +1,7 @@
 Marvel.Router = Backbone.Router.extend({
     _current: null,
 
-    app     : undefined,
+    app: undefined,
 
     initialize: function (config) {
         this.app = config.app;
@@ -37,11 +37,13 @@ Marvel.Router = Backbone.Router.extend({
 
             var resultsName = 'results_for_' + name;
 
-            marvel.content[resultsName] = new Marvel.Collection.Characters();
+            if (!marvel.content[resultsName]) {
+                marvel.content[resultsName] = new Marvel.Collection.Characters();
+            }
 
             var nameSearchResultsView = new Marvel.View.Search({
                 collection: marvel.content[resultsName],
-                name      : name
+                name: name
             });
 
             marvel.showView(nameSearchResultsView);
