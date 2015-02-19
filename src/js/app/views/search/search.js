@@ -31,6 +31,9 @@ Marvel.View.Search = Backbone.View.extend({
         this.childViews.push(searchInput);
 
         this.$el.append(this.template());
+        this.$el.append(searchInput.render().el);
+
+        console.log('this collection should be empty upon first time search', this.collection);
 
         // if collection exists then render what's there.
         this.collection.each(function (model) {
@@ -40,15 +43,17 @@ Marvel.View.Search = Backbone.View.extend({
 
             this.childViews.push(characterView);
 
-        }, this);
+            console.log('rendered a search result');
 
-        this.$el.append(searchInput.render().el);
+        }, this);
     },
 
     renderAdditionalCharacters: function (newModel) {
         var characterView = new Marvel.View.Character({model: newModel});
 
         this.$el.append(characterView.render().el);
+
+        console.log('rendered a search result, but should not have');
 
         this.childViews.push(characterView);
     },

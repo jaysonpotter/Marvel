@@ -12,7 +12,6 @@ Marvel.Collection.Characters = Backbone.Collection.extend({
     },
 
     initialize: function () {
-        console.log('character collection');
     },
 
     fetchCharactersSearchResults: function (options) {

@@ -47,16 +47,34 @@ Marvel.App.Mvl = function () {
         },
 
         showView: function (view) {
+            var previousView = this.currentView || null,
+                nextView = view,
+                self = this;
 
-            if (this.currentView) {
-                this.currentView.close();
+            if (previousView) {
+
+                previousView.transitionOut(function(){
+                    previousView.close();
+
+                    nextView.render();
+
+                    $("#Content").append(nextView.$el);
+
+                    nextView.transitionIn();
+
+                    self.currentView = nextView;
+                });
+
+            } else {
+                nextView.render();
+
+                $("#Content").append(nextView.$el);
+
+                nextView.transitionIn();
+
+                this.currentView = nextView;
             }
 
-            this.currentView = view;
-
-            this.currentView.render();
-
-            $("#Content").html(this.currentView.el);
         }
     });
 };

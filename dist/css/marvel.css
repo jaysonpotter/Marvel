@@ -173,3 +173,10 @@ body {
   background: #ff00ff;
   background: radial-gradient(ellipse at center, #32beff 0%, #ef2fe2 100%);
 }
+#Content {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+#Content.is-visible {
+  opacity: 1;
+}

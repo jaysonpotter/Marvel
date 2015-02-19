@@ -14,3 +14,23 @@ Backbone.View.prototype.close = function () {
     }
 
 };
+
+Backbone.View.prototype.transitionIn = function (callback) {
+    $('#Content').addClass('is-visible');
+
+    $('#Content').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function () {
+        if (_.isFunction(callback)) {
+            callback();
+        }
+    });
+};
+
+Backbone.View.prototype.transitionOut = function (callback) {
+    $('#Content').removeClass('is-visible');
+
+    $('#Content').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function () {
+        if (_.isFunction(callback)) {
+            callback();
+        }
+    });
+};
