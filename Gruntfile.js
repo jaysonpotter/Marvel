@@ -116,14 +116,28 @@ module.exports = function (grunt) {
         },
 
         uglify: {
-            options: {
-                banner: '<%= banner %>',
-                mangle: false,
-                beautify: true
+            development: {
+                options: {
+                    banner: '<%= banner %>',
+                    mangle: false,
+                    beautify: true
+                },
+                dist: {
+                    src: '<%= concat.shabang.dest %>',
+                    dest: 'dist/js/<%= pkg.name %>.min.js'
+                }
             },
-            dist: {
-                src: '<%= concat.shabang.dest %>',
-                dest: 'dist/js/<%= pkg.name %>.min.js'
+            production: {
+                options: {
+                    banner: '<%= banner %>',
+                    compress: {
+                        drop_console: true
+                    }
+                },
+                dist: {
+                    src: '<%= concat.shabang.dest %>',
+                    dest: 'dist/js/<%= pkg.name %>.min.js'
+                }
             }
         },
 
@@ -182,7 +196,21 @@ module.exports = function (grunt) {
         'autoprefixer',
         'concat',
         'jshint',
-        'uglify',
+        'uglify:development',
+        'copy',
+        'clean:temp',
+        'watch'
+    ]);
+
+    // Default task.
+    grunt.registerTask('production', [
+        'clean:freshStart',
+        'jst',
+        'less:production',
+        'autoprefixer',
+        'concat',
+        'jshint',
+        'uglify:production',
         'copy',
         'clean:temp',
         'watch'

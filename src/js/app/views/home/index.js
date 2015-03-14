@@ -1,4 +1,5 @@
 Marvel.View.Index = Backbone.View.extend({
+
     template: Marvel.Templates.index,
 
     events: {
@@ -13,7 +14,8 @@ Marvel.View.Index = Backbone.View.extend({
         this.listenTo(this.collection, 'add', this.renderAdditionalCharacters);
     },
 
-    placeholderMethod: function () {},
+    placeholderMethod: function () {
+    },
 
     render: function () {
         var searchInput = new Marvel.View.SearchInput();
@@ -27,6 +29,7 @@ Marvel.View.Index = Backbone.View.extend({
 
             // if collection exists then render what's there.
             this.collection.each(function (model) {
+
                 var characterView = new Marvel.View.Character({model: model});
 
                 this.$el.append(characterView.render().el);
