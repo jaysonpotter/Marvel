@@ -122,9 +122,8 @@ module.exports = function (grunt) {
                     mangle: false,
                     beautify: true
                 },
-                dist: {
-                    src: '<%= concat.shabang.dest %>',
-                    dest: 'dist/js/<%= pkg.name %>.min.js'
+                files: {
+                    'dist/js/<%= pkg.name %>.min.js': ['<%= concat.shabang.dest %>']
                 }
             },
             production: {
@@ -135,8 +134,7 @@ module.exports = function (grunt) {
                     }
                 },
                 dist: {
-                    src: '<%= concat.shabang.dest %>',
-                    dest: 'dist/js/<%= pkg.name %>.min.js'
+                    'dist/js/<%= pkg.name %>.min.js': ['<%= concat.shabang.dest %>']
                 }
             }
         },
@@ -188,7 +186,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    // Default task.
+    // Default development tasks.
     grunt.registerTask('default', [
         'clean:freshStart',
         'jst',
@@ -202,7 +200,7 @@ module.exports = function (grunt) {
         'watch'
     ]);
 
-    // Default task.
+    // Production task.
     grunt.registerTask('production', [
         'clean:freshStart',
         'jst',
